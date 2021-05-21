@@ -11,7 +11,7 @@ config({
 });
 
 class App {
-  express: Application;
+  private express: Application;
 
   constructor() {
     this.express = express();
@@ -20,7 +20,7 @@ class App {
     this.routes();
   }
 
-  middlewares() {
+  private middlewares() {
     this.express.use(
       morgan(
         chalk`{yellow :method} :url {green :status} :response-time ms - :res[content-length]`
@@ -30,11 +30,11 @@ class App {
     this.express.use(compression());
   }
 
-  routes() {
+  private routes() {
     this.express.use(routeImporter());
   }
 
-  listen() {
+  public listen() {
     this.express.listen(process.env.PORT, () => {
       info(`Server is up and running on port ${process.env.PORT}`);
     });
