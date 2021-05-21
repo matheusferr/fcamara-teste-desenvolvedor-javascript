@@ -1,0 +1,21 @@
+# dependencies
+/node_modules
+
+#dist
+/dist
+
+# testing
+/__tests__/coverage
+
+# local env files
+.env.*
+
+# misc
+.vscode
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
