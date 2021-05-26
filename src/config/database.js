@@ -22,16 +22,6 @@ const defaultConfig = {
 };
 
 module.exports = {
-  development: {
-    ...defaultConfig,
-    logging: databaseLogger,
-  },
-  test: {
-    ...defaultConfig,
-    logging: false,
-  },
-  production: {
-    ...defaultConfig,
-    logging: false,
-  },
+  ...defaultConfig,
+  logging: process.env.NODE_ENV === "dev" ? databaseLogger : false,
 };

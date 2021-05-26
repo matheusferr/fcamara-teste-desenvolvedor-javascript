@@ -2,9 +2,15 @@ import fs from "fs";
 import path from "path";
 import { Router } from "express";
 
-export function routeImporter(dir?: string) {
+/**
+ *
+ *
+ * @export
+ * @return {*}  {Router}
+ */
+export function routeImporter(): Router {
   const routesDir =
-    dir || process.env.NODE_ENV === "dev"
+    process.env.NODE_ENV === "dev"
       ? path.join(process.cwd(), "src", "routes")
       : path.join(process.cwd(), "dist", "routes");
 
