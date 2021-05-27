@@ -15,7 +15,8 @@
     "baseUrl": ".",
     "paths": {
       "@utils/*": ["./src/utils/*"],
-      "@models": ["./src/database/models/"]
+      "@models": ["./src/database/models/"],
+      "@dals": ["./src/database/dals/implementation/"]
     },
     "esModuleInterop": true,
     "resolveJsonModule": true,

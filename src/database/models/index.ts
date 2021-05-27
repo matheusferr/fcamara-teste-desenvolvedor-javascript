@@ -15,12 +15,12 @@ Estado.belongsTo(Pais, {
 
 Estado.hasMany(Cidade, {
   foreignKey: "id_estado",
-  as: "cidadeEstado",
+  as: "estadoCidade",
 });
 
 Cidade.belongsTo(Estado, {
   foreignKey: "id_estado",
-  as: "cidadeEstado",
+  as: "estadoCidade",
 });
 
 Cidade.hasMany(Pessoa, {

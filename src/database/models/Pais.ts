@@ -7,7 +7,7 @@ interface PaisAttr {
   sigla: string;
 }
 
-interface PaisCreationAttr extends Optional<PaisAttr, "id"> {}
+export interface PaisCreationAttr extends Optional<PaisAttr, "id"> {}
 
 interface PaisInstance extends Model<PaisAttr, PaisCreationAttr>, PaisAttr {
   createdAt?: Date;

@@ -9,7 +9,12 @@ interface EstadoAttr {
   id_pais: number;
 }
 
-interface EstadoCreationAttr extends Optional<EstadoAttr, "id"> {}
+export interface EstadoUpdateAttr {
+  sigla?: string;
+  id_pais?: number;
+}
+
+export interface EstadoCreationAttr extends Optional<EstadoAttr, "id"> {}
 
 interface EstadoInstance
   extends Model<EstadoAttr, EstadoCreationAttr>,

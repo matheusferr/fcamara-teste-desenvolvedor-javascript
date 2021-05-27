@@ -9,7 +9,12 @@ interface CidadeAttr {
   id_estado: number;
 }
 
-interface CidadeCreationAttr extends Optional<CidadeAttr, "id"> {}
+export interface CidadeUpdateAttr {
+  nome?: string;
+  id_estado?: number;
+}
+
+export interface CidadeCreationAttr extends Optional<CidadeAttr, "id"> {}
 
 interface CidadeInstance
   extends Model<CidadeAttr, CidadeCreationAttr>,

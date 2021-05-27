@@ -14,7 +14,17 @@ interface PessoaAttr {
   nome_pai?: string;
 }
 
-interface PessoaCreationAttr extends Optional<PessoaAttr, "id"> {}
+export interface PessoaUpdateAttr {
+  nome?: string;
+  cpf?: string;
+  email?: string;
+  data_nascimento?: Date;
+  local_nascimento?: number;
+  nome_mae?: string;
+  nome_pai?: string;
+}
+
+export interface PessoaCreationAttr extends Optional<PessoaAttr, "id"> {}
 
 interface PessoaInstance
   extends Model<PessoaAttr, PessoaCreationAttr>,
