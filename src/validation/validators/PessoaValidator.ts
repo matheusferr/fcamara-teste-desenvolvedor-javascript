@@ -61,13 +61,6 @@ export class PessoaValidator {
   }
 
   static validateUpdateAttr(payload: PessoaUpdateAttr) {
-    console.log(
-      !payload.nome &&
-        !payload.cpf &&
-        !payload.email &&
-        !payload.data_nascimento &&
-        !payload.local_nascimento
-    );
     if (
       !payload.nome &&
       !payload.cpf &&
