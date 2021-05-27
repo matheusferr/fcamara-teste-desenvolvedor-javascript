@@ -16,15 +16,40 @@ class CidadeDalImpl implements CidadeDalDef {
     };
   }
 
+  async findAll() {
+    const cidades = await Cidade.findAll({
+      include: [
+        {
+          association: "estadoCidade",
+          attributes: { exclude: ["id", "id_pais"] },
+        },
+      ],
+    });
+
+    return cidades.map((cidade) => ({
+      id: cidade.id,
+      nome: cidade.nome,
+      // @ts-ignore
+      estado: cidade.estadoCidade.sigla,
+    }));
+  }
+
   async findById(id: number) {
     const cidade = await Cidade.findByPk(id, {
       rejectOnEmpty: true,
+      include: [
+        {
+          association: "estadoCidade",
+          attributes: { exclude: ["id", "id_pais"] },
+        },
+      ],
     });
 
     return {
       id: cidade.id,
       nome: cidade.nome,
-      id_estado: cidade.id_estado,
+      // @ts-ignore
+      estado: cidade.estadoCidade.sigla,
     };
   }
 
@@ -34,12 +59,19 @@ class CidadeDalImpl implements CidadeDalDef {
         nome,
       },
       rejectOnEmpty: true,
+      include: [
+        {
+          association: "estadoCidade",
+          attributes: { exclude: ["id", "id_pais"] },
+        },
+      ],
     });
 
     return {
       id: cidade.id,
       nome: cidade.nome,
-      id_estado: cidade.id_estado,
+      // @ts-ignore
+      estado: cidade.estadoCidade.sigla,
     };
   }
 

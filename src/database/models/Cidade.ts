@@ -19,8 +19,8 @@ export interface CidadeCreationAttr extends Optional<CidadeAttr, "id"> {}
 interface CidadeInstance
   extends Model<CidadeAttr, CidadeCreationAttr>,
     CidadeAttr {
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 const Cidade = sequelize.define<CidadeInstance>(

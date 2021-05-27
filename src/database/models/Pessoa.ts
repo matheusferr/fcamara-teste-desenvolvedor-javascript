@@ -29,8 +29,8 @@ export interface PessoaCreationAttr extends Optional<PessoaAttr, "id"> {}
 interface PessoaInstance
   extends Model<PessoaAttr, PessoaCreationAttr>,
     PessoaAttr {
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 const Pessoa = sequelize.define<PessoaInstance>(
   "Pessoa",

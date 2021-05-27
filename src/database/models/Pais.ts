@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
 import { Model, Optional, DataTypes } from "sequelize";
 import sequelize from "./connection";
@@ -10,8 +11,8 @@ interface PaisAttr {
 export interface PaisCreationAttr extends Optional<PaisAttr, "id"> {}
 
 interface PaisInstance extends Model<PaisAttr, PaisCreationAttr>, PaisAttr {
-  createdAt?: Date;
-  updatedAt?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 const Pais = sequelize.define<PaisInstance>(
