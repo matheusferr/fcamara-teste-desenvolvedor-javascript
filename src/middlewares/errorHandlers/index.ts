@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { InvalidBodyFormat, InvalidCpf } from "@errors";
+import { InvalidBodyFormat, InvalidCpf, InvalidRequest } from "@errors";
 import {
   UniqueConstraintError,
   ValidationError,
   ForeignKeyConstraintError,
   EmptyResultError,
+  DatabaseError,
 } from "sequelize";
 
 export function handleInvalidBodyFormat(
@@ -14,12 +15,25 @@ export function handleInvalidBodyFormat(
   next: NextFunction
 ) {
   if (err instanceof InvalidBodyFormat)
-    return res.status(err.statusCode).send({
+    res.status(err.statusCode).send({
       status: "error",
       message: err.message,
     });
+  else next(err);
+}
 
-  return next(err);
+export function handleInvalidRequest(
+  err: Error,
+  _: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (err instanceof InvalidRequest)
+    res.status(err.statusCode).send({
+      status: "error",
+      message: err.message,
+    });
+  else next(err);
 }
 
 export function handleInvalidCpf(
@@ -29,12 +43,11 @@ export function handleInvalidCpf(
   next: NextFunction
 ) {
   if (err instanceof InvalidCpf)
-    return res.status(err.statusCode).send({
+    res.status(err.statusCode).send({
       status: "error",
       message: err.message,
     });
-
-  return next(err);
+  else next(err);
 }
 
 export function handleUniqueConstraint(
@@ -44,12 +57,11 @@ export function handleUniqueConstraint(
   next: NextFunction
 ) {
   if (err instanceof UniqueConstraintError)
-    return res.status(400).send({
+    res.status(400).send({
       status: "error",
-      message: err.message,
+      message: `Campo ${err.errors[0].path} deve ser unico`,
     });
-
-  return next(err);
+  else next(err);
 }
 
 export function handleValidation(
@@ -58,13 +70,13 @@ export function handleValidation(
   res: Response,
   next: NextFunction
 ) {
-  if (err instanceof ValidationError)
-    return res.status(400).send({
+  if (err instanceof ValidationError) {
+    const { path, validatorArgs } = err.errors[0];
+    res.status(400).send({
       status: "error",
-      message: err.message,
+      message: `Tamanho do campo ${path} deve ter ${validatorArgs[0]} caracteres`,
     });
-
-  return next(err);
+  } else next(err);
 }
 
 export function handleForeignKeyConstraint(
@@ -74,12 +86,11 @@ export function handleForeignKeyConstraint(
   next: NextFunction
 ) {
   if (err instanceof ForeignKeyConstraintError)
-    return res.status(400).send({
+    res.status(400).send({
       status: "error",
-      message: err.message,
+      message: "Relacionamento nao encontrado",
     });
-
-  return next(err);
+  else next(err);
 }
 
 export function handleEmptyResult(
@@ -89,10 +100,23 @@ export function handleEmptyResult(
   next: NextFunction
 ) {
   if (err instanceof EmptyResultError)
-    return res.status(404).send({
+    res.status(404).send({
       status: "error",
-      message: "recurso nao encontrado",
+      message: "Recurso nao encontrado",
     });
+  else next(err);
+}
 
-  return next(err);
+export function handleDatabaseError(
+  err: Error,
+  _: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (err instanceof DatabaseError)
+    res.status(400).send({
+      status: "error",
+      message: "Campos invalidos",
+    });
+  else next(err);
 }

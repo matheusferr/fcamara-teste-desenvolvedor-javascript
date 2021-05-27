@@ -1,6 +1,6 @@
 import {
   UniqueConstraintError,
-  DatabaseError,
+  ValidationError,
   ForeignKeyConstraintError,
 } from "sequelize";
 import faker from "faker";
@@ -64,6 +64,6 @@ describe("Table Estado", () => {
         sigla: "ABC",
         id_pais: country.id,
       })
-    ).rejects.toThrow(DatabaseError);
+    ).rejects.toThrow(ValidationError);
   });
 });

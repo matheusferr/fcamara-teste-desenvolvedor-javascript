@@ -16,6 +16,24 @@ class EstadoDalImpl implements EstadoDalDef {
     };
   }
 
+  async findAll() {
+    const estados = await Estado.findAll({
+      include: [
+        {
+          association: "paisEstado",
+          attributes: { exclude: ["id"] },
+        },
+      ],
+    });
+
+    return estados.map((estado) => ({
+      id: estado.id,
+      sigla: estado.sigla,
+      // @ts-ignore
+      pais: estado.paisEstado.sigla,
+    }));
+  }
+
   async findById(id: number) {
     const estado = await Estado.findByPk(id, {
       rejectOnEmpty: true,
@@ -31,7 +49,7 @@ class EstadoDalImpl implements EstadoDalDef {
   async findBySigla(sigla: string) {
     const estado = await Estado.findOne({
       where: {
-        sigla,
+        sigla: sigla.toUpperCase(),
       },
       rejectOnEmpty: true,
     });
@@ -48,7 +66,7 @@ class EstadoDalImpl implements EstadoDalDef {
       rejectOnEmpty: true,
     });
 
-    estado.sigla = payload.sigla || estado.sigla;
+    estado.sigla = payload.sigla?.toUpperCase() || estado.sigla;
     estado.id_pais = payload.id_pais || estado.id_pais;
 
     await estado.save();

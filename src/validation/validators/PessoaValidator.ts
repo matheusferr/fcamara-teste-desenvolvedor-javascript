@@ -7,8 +7,10 @@ import {
 import { InvalidBodyFormat, InvalidCpf } from "../errors";
 
 export class PessoaValidator {
-  private static validateCpf(cpf: string) {
+  private static validateCpf(cpf?: string) {
+    if (!cpf) throw new InvalidCpf();
     if (cpf.length !== 11) throw new InvalidCpf();
+
     const regex = RegExp(`^${cpf[0]}+$`);
 
     if (regex.test(cpf)) throw new InvalidCpf();
@@ -68,6 +70,6 @@ export class PessoaValidator {
     )
       throw new InvalidBodyFormat();
 
-    this.validateCpf(payload.cpf as string);
+    this.validateCpf(payload.cpf);
   }
 }
