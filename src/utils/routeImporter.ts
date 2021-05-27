@@ -2,12 +2,6 @@ import fs from "fs";
 import path from "path";
 import { Router } from "express";
 
-/**
- *
- *
- * @export
- * @return {*}  {Router}
- */
 export function routeImporter(): Router {
   const routesDir =
     process.env.NODE_ENV === "dev"

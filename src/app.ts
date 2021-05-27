@@ -5,6 +5,7 @@ import chalk from "chalk";
 import compression from "compression";
 import { info } from "@utils/logger";
 import { routeImporter } from "@utils/routeImporter";
+import ApplyMiddlewares from "./middlewares";
 
 config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -16,8 +17,8 @@ class App {
   constructor() {
     this.express = express();
 
-    this.middlewares();
     this.routes();
+    this.middlewares();
   }
 
   middlewares() {
@@ -28,6 +29,8 @@ class App {
     );
     this.express.use(express.json());
     this.express.use(compression());
+
+    ApplyMiddlewares(this.express);
   }
 
   routes() {
