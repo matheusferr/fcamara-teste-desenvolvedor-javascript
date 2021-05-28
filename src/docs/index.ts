@@ -6,7 +6,7 @@ export default {
   info: {
     description:
       "Projeto criado para documentar o teste para a vaga de desenvolvedor backend com Typescript",
-    version: "1.0.0",
+    version: "1.0.3",
     title: "API Pessoas",
     contact: {
       email: "math.ferr@outlook.com",

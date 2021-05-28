@@ -16,7 +16,7 @@ config({
 });
 
 class App {
-  private express: Application;
+  public express: Application;
 
   constructor() {
     this.express = express();
@@ -40,10 +40,6 @@ class App {
     this.express.use(compression());
   }
 
-<<<<<<< HEAD
-  private routes() {
-    this.express.use(routeImporter());
-=======
   errorHandlers() {
     ApplyMiddlewares(this.express);
   }
@@ -51,7 +47,6 @@ class App {
   routes() {
     this.express.use("/api", routes);
     this.express.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
->>>>>>> dev
   }
 
   public listen() {
