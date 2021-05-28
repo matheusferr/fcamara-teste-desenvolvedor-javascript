@@ -16,7 +16,7 @@ export function handleInvalidBodyFormat(
 ) {
   if (err instanceof InvalidBodyFormat)
     res.status(err.statusCode).send({
-      status: "error",
+      status: "erro",
       message: err.message,
     });
   else next(err);
@@ -30,7 +30,7 @@ export function handleInvalidRequest(
 ) {
   if (err instanceof InvalidRequest)
     res.status(err.statusCode).send({
-      status: "error",
+      status: "erro",
       message: err.message,
     });
   else next(err);
@@ -44,7 +44,7 @@ export function handleInvalidCpf(
 ) {
   if (err instanceof InvalidCpf)
     res.status(err.statusCode).send({
-      status: "error",
+      status: "erro",
       message: err.message,
     });
   else next(err);
@@ -58,7 +58,7 @@ export function handleUniqueConstraint(
 ) {
   if (err instanceof UniqueConstraintError)
     res.status(400).send({
-      status: "error",
+      status: "erro",
       message: `Campo ${err.errors[0].path} deve ser unico`,
     });
   else next(err);
@@ -73,7 +73,7 @@ export function handleValidation(
   if (err instanceof ValidationError) {
     const { path, validatorArgs } = err.errors[0];
     res.status(400).send({
-      status: "error",
+      status: "erro",
       message: `Tamanho do campo ${path} deve ter ${validatorArgs[0]} caracteres`,
     });
   } else next(err);
@@ -87,8 +87,8 @@ export function handleForeignKeyConstraint(
 ) {
   if (err instanceof ForeignKeyConstraintError)
     res.status(400).send({
-      status: "error",
-      message: "Relacionamento nao encontrado",
+      status: "erro",
+      message: "Relacionamento não encontrado",
     });
   else next(err);
 }
@@ -101,8 +101,8 @@ export function handleEmptyResult(
 ) {
   if (err instanceof EmptyResultError)
     res.status(404).send({
-      status: "error",
-      message: "Recurso nao encontrado",
+      status: "erro",
+      message: "Recurso não encontrado",
     });
   else next(err);
 }
@@ -114,9 +114,9 @@ export function handleDatabaseError(
   next: NextFunction
 ) {
   if (err instanceof DatabaseError)
-    res.status(400).send({
-      status: "error",
-      message: "Campos invalidos",
+    res.status(500).send({
+      status: "erro",
+      message: "Erro do servidor",
     });
   else next(err);
 }

@@ -65,8 +65,10 @@
     "prebuild": "rm -rf ./dist",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
     "migrate:dev": "NODE_ENV=dev sequelize db:migrate",
+    "postmigrate:dev": "NODE_ENV=dev sequelize db:seed:all",
     "migrate:dev:undo": "NODE_ENV=dev sequelize db:migrate:undo:all",
     "migrate:prod": "NODE_ENV=prod sequelize db:migrate",
+    "postmigrate:prod": "NODE_ENV=dev sequelize db:seed:all",
     "migrate:prod:undo": "NODE_ENV=prod sequelize db:migrate:undo:all"
   }
 }

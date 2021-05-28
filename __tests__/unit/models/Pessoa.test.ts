@@ -10,9 +10,7 @@ import { truncate } from "../../utils";
 describe("Table Pessoa", () => {
   beforeEach(async () => {
     await truncate();
-  });
 
-  it("should create a person", async () => {
     const country = await Pais.create({
       sigla: faker.address.countryCode(),
     });
@@ -22,11 +20,13 @@ describe("Table Pessoa", () => {
       id_pais: country.id,
     });
 
-    const city = await Cidade.create({
+    await Cidade.create({
       nome: faker.address.cityName(),
       id_estado: state.id,
     });
+  });
 
+  it("should create a person", async () => {
     const person = await Pessoa.create({
       nome: faker.fake(
         "{{name.firstName}} {{name.middleName}} {{name.lastName}} "
@@ -34,27 +34,13 @@ describe("Table Pessoa", () => {
       cpf: "11111111111",
       email: faker.internet.email(),
       data_nascimento: faker.date.past(),
-      local_nascimento: city.id,
+      local_nascimento: 1,
     });
 
     expect(person.id).toBe(1);
   });
 
   it("should create a person with optional fields", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
-    const state = await Estado.create({
-      sigla: faker.address.stateAbbr(),
-      id_pais: country.id,
-    });
-
-    const city = await Cidade.create({
-      nome: faker.address.cityName(),
-      id_estado: state.id,
-    });
-
     const person = await Pessoa.create({
       nome: faker.fake(
         "{{name.firstName}} {{name.middleName}} {{name.lastName}} "
@@ -62,7 +48,7 @@ describe("Table Pessoa", () => {
       cpf: "11111111111",
       email: faker.internet.email(),
       data_nascimento: faker.date.past(),
-      local_nascimento: city.id,
+      local_nascimento: 1,
       nome_mae: faker.fake(
         "{{name.firstName}} {{name.middleName}} {{name.lastName}} "
       ),
@@ -75,20 +61,6 @@ describe("Table Pessoa", () => {
   });
 
   it("should respect unique constraint in field cpf", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
-    const state = await Estado.create({
-      sigla: faker.address.stateAbbr(),
-      id_pais: country.id,
-    });
-
-    const city = await Cidade.create({
-      nome: faker.address.cityName(),
-      id_estado: state.id,
-    });
-
     await Pessoa.create({
       nome: faker.fake(
         "{{name.firstName}} {{name.middleName}} {{name.lastName}} "
@@ -96,7 +68,7 @@ describe("Table Pessoa", () => {
       cpf: "11111111111",
       email: faker.internet.email(),
       data_nascimento: faker.date.past(),
-      local_nascimento: city.id,
+      local_nascimento: 1,
     });
 
     await expect(
@@ -107,33 +79,19 @@ describe("Table Pessoa", () => {
         cpf: "11111111111",
         email: faker.internet.email(),
         data_nascimento: faker.date.past(),
-        local_nascimento: city.id,
+        local_nascimento: 1,
       })
     ).rejects.toThrow(UniqueConstraintError);
   });
 
   it("should validate required fields", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
-    const state = await Estado.create({
-      sigla: faker.address.stateAbbr(),
-      id_pais: country.id,
-    });
-
-    const city = await Cidade.create({
-      nome: faker.address.cityName(),
-      id_estado: state.id,
-    });
-
     await expect(
       Pessoa.create({
         nome: "",
         cpf: "",
         email: "",
         data_nascimento: faker.date.past(),
-        local_nascimento: city.id,
+        local_nascimento: 1,
       })
     ).rejects.toThrow(ValidationError);
   });

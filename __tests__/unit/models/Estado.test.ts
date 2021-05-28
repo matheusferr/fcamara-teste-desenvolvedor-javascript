@@ -10,37 +10,32 @@ import { truncate } from "../../utils";
 describe("Table Estado", () => {
   beforeEach(async () => {
     await truncate();
+    await Pais.create({
+      sigla: faker.address.countryCode(),
+    });
   });
 
   it("should create a state", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
     const state = await Estado.create({
       sigla: faker.address.stateAbbr(),
-      id_pais: country.id,
+      id_pais: 1,
     });
 
     expect(state.id).toBe(1);
   });
 
   it("should respect unique constraint in field sigla", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
     const sigla = faker.address.stateAbbr();
 
     await Estado.create({
       sigla,
-      id_pais: country.id,
+      id_pais: 1,
     });
 
     await expect(
       Estado.create({
         sigla,
-        id_pais: country.id,
+        id_pais: 1,
       })
     ).rejects.toThrow(UniqueConstraintError);
   });
@@ -55,14 +50,10 @@ describe("Table Estado", () => {
   });
 
   it("should validate field sigla", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
     await expect(
       Estado.create({
         sigla: "ABC",
-        id_pais: country.id,
+        id_pais: 1,
       })
     ).rejects.toThrow(ValidationError);
   });

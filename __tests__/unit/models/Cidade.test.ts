@@ -6,47 +6,38 @@ import { truncate } from "../../utils";
 describe("Table Cidade", () => {
   beforeEach(async () => {
     await truncate();
-  });
 
-  it("should create a city", async () => {
     const country = await Pais.create({
       sigla: faker.address.countryCode(),
     });
 
-    const state = await Estado.create({
+    await Estado.create({
       sigla: faker.address.stateAbbr(),
       id_pais: country.id,
     });
+  });
 
+  it("should create a city", async () => {
     const city = await Cidade.create({
       nome: faker.address.cityName(),
-      id_estado: state.id,
+      id_estado: 1,
     });
 
     expect(city.id).toBe(1);
   });
 
   it("should respect unique constraint in field nome", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
-    const state = await Estado.create({
-      sigla: faker.address.stateAbbr(),
-      id_pais: country.id,
-    });
-
     const nome = faker.address.cityName();
 
     await Cidade.create({
       nome,
-      id_estado: state.id,
+      id_estado: 1,
     });
 
     await expect(
       Cidade.create({
         nome,
-        id_estado: state.id,
+        id_estado: 1,
       })
     ).rejects.toThrow(UniqueConstraintError);
   });

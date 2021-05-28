@@ -14,8 +14,11 @@ export default {
   preset: "ts-jest",
   testEnvironment: "node",
   testMatch: ["**/__tests__/**/*.test.[jt]s"],
-  testPathIgnorePatterns: [
-    "<rootDir>/src/database/migrations/**/*js",
-    "<rootDir>/src/database/seeders/**/*js",
+  coveragePathIgnorePatterns: [
+    "/migrations/",
+    "/seeders/",
+    "/dals/definition/",
+    "/docs/",
+    "/src/index.ts",
   ],
 };
