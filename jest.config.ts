@@ -14,4 +14,11 @@ export default {
   preset: "ts-jest",
   testEnvironment: "node",
   testMatch: ["**/__tests__/**/*.test.[jt]s"],
+  coveragePathIgnorePatterns: [
+    "/migrations/",
+    "/seeders/",
+    "/dals/definition/",
+    "/docs/",
+    "/src/index.ts",
+  ],
 };

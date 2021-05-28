@@ -16,6 +16,10 @@ module.exports = {
       {
         alias: {
           "@utils": "./src/utils",
+          "@models": "./src/database/models",
+          "@dals": "./src/database/dals/implementation",
+          "@validators": "./src/validation/validators",
+          "@errors": "./src/validation/errors",
         },
       },
     ],
