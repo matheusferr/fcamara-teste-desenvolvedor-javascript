@@ -1,8 +1,8 @@
 {
   "name": "teste-dev-js",
   "version": "1.0.0",
-  "description": " Projeto criado para documentar o teste para a vaga de desenvolvedor backend com Javascript ",
-  "main": "index.js",
+  "description": "Projeto criado para documentar o teste para a vaga de desenvolvedor backend com Typescript",
+  "main": "index.ts",
   "repository": "git@github.com:matheusferr/fcamara-teste-desenvolvedor-javascript.git",
   "author": "Matheus Ferreira <math.ferr@outlook.com>",
   "license": "MIT",
@@ -12,10 +12,12 @@
     "compression": "^1.7.4",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
     "morgan": "^1.10.0",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.6.2"
+    "sequelize": "^6.6.2",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.3",
@@ -29,6 +31,7 @@
     "@types/morgan": "^1.9.2",
     "@types/node": "^15.3.0",
     "@types/supertest": "^2.0.11",
+    "@types/swagger-ui-express": "^4.1.2",
     "@types/validator": "^13.1.3",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",

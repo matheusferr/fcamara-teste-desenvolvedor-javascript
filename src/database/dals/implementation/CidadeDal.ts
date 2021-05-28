@@ -56,7 +56,7 @@ class CidadeDalImpl implements CidadeDalDef {
   async findByNome(nome: string) {
     const cidade = await Cidade.findOne({
       where: {
-        nome,
+        nome: nome.toUpperCase(),
       },
       rejectOnEmpty: true,
       include: [

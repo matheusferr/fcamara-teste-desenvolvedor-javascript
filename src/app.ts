@@ -1,11 +1,14 @@
 import { config } from "dotenv";
 import express, { Application } from "express";
+import helmet from "helmet";
 import morgan from "morgan";
 import chalk from "chalk";
 import compression from "compression";
 import { info } from "@utils/logger";
+import swaggerUi from "swagger-ui-express";
 import routes from "./routes";
 import ApplyMiddlewares from "./middlewares";
+import docs from "./docs";
 
 config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -30,6 +33,7 @@ class App {
       )
     );
 
+    this.express.use(helmet());
     this.express.use(express.json());
     this.express.use(compression());
   }
@@ -40,6 +44,7 @@ class App {
 
   routes() {
     this.express.use("/api", routes);
+    this.express.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
   }
 
   listen() {

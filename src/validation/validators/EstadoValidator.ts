@@ -10,7 +10,7 @@ export class EstadoValidator {
     if (!payload.sigla || !payload.id_pais) throw new InvalidBodyFormat();
   }
 
-  static validateUpdateAttr(payload?: EstadoUpdateAttr) {
+  static validateUpdateAttr(payload: EstadoUpdateAttr) {
     if (!payload.sigla && !payload.id_pais) throw new InvalidBodyFormat();
   }
 }

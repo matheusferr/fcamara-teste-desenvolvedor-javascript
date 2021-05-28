@@ -3,10 +3,6 @@ import { Request, Response, NextFunction } from "express";
 import { EstadoDal } from "@dals";
 import { RequestValidator, EstadoValidator } from "@validators";
 import { getLocation } from "@utils/getLocation";
-import {
-  EstadoCreationAttr,
-  EstadoUpdateAttr,
-} from "../database/models/Estado";
 
 async function index(req: Request, res: Response) {
   const estados = await EstadoDal.findAll();
