@@ -3,6 +3,7 @@ import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import chalk from "chalk";
+import cors from "cors";
 import compression from "compression";
 import { info } from "@utils/logger";
 import swaggerUi from "swagger-ui-express";
@@ -34,6 +35,7 @@ class App {
     );
 
     this.express.use(helmet());
+    this.express.use(cors());
     this.express.use(express.json());
     this.express.use(compression());
   }
