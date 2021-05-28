@@ -35,7 +35,6 @@ const Estado = sequelize.define<EstadoInstance>(
     sigla: {
       type: DataTypes.STRING(2),
       allowNull: false,
-      unique: true,
       validate: {
         notEmpty: true,
         len: [2, 2],

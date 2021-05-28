@@ -3,9 +3,9 @@ export const error404 = {
   properties: {
     status: {
       type: "string",
-      example: "error",
+      example: "erro",
     },
-    message: {
+    mensagem: {
       type: "string",
       example: "Recurso nao encontrado",
     },
@@ -17,11 +17,11 @@ export const error400 = {
   properties: {
     status: {
       type: "string",
-      example: "error",
+      example: "erro",
     },
-    message: {
+    mensagem: {
       type: "string",
-      example: "Formato do corpo invalido",
+      example: "Formato do corpo inválido",
     },
   },
 };
