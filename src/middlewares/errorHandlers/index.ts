@@ -17,7 +17,7 @@ export function handleInvalidBodyFormat(
   if (err instanceof InvalidBodyFormat)
     res.status(err.statusCode).send({
       status: "erro",
-      message: err.message,
+      mensagem: err.message,
     });
   else next(err);
 }
@@ -31,7 +31,7 @@ export function handleInvalidRequest(
   if (err instanceof InvalidRequest)
     res.status(err.statusCode).send({
       status: "erro",
-      message: err.message,
+      mensagem: err.message,
     });
   else next(err);
 }
@@ -45,7 +45,7 @@ export function handleInvalidCpf(
   if (err instanceof InvalidCpf)
     res.status(err.statusCode).send({
       status: "erro",
-      message: err.message,
+      mensagem: err.message,
     });
   else next(err);
 }
@@ -56,12 +56,13 @@ export function handleUniqueConstraint(
   res: Response,
   next: NextFunction
 ) {
-  if (err instanceof UniqueConstraintError)
+  if (err instanceof UniqueConstraintError) {
     res.status(400).send({
       status: "erro",
-      message: `Campo ${err.errors[0].path} deve ser unico`,
+      mensagem: "Campos devem ser únicos",
+      campos: err.errors.map(({ path }) => path),
     });
-  else next(err);
+  } else next(err);
 }
 
 export function handleValidation(
@@ -74,7 +75,7 @@ export function handleValidation(
     const { path, validatorArgs } = err.errors[0];
     res.status(400).send({
       status: "erro",
-      message: `Tamanho do campo ${path} deve ter ${validatorArgs[0]} caracteres`,
+      mensagem: `Tamanho do campo ${path} deve ter ${validatorArgs[0]} caracteres`,
     });
   } else next(err);
 }
@@ -88,7 +89,7 @@ export function handleForeignKeyConstraint(
   if (err instanceof ForeignKeyConstraintError)
     res.status(400).send({
       status: "erro",
-      message: "Relacionamento não encontrado",
+      mensagem: "Relacionamento não encontrado",
     });
   else next(err);
 }
@@ -102,7 +103,7 @@ export function handleEmptyResult(
   if (err instanceof EmptyResultError)
     res.status(404).send({
       status: "erro",
-      message: "Recurso não encontrado",
+      mensagem: "Recurso não encontrado",
     });
   else next(err);
 }
@@ -116,7 +117,7 @@ export function handleDatabaseError(
   if (err instanceof DatabaseError)
     res.status(500).send({
       status: "erro",
-      message: "Erro do servidor",
+      mensagem: "Erro do servidor",
     });
   else next(err);
 }

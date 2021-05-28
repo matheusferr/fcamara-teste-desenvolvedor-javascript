@@ -10,7 +10,6 @@ module.exports = {
       sigla: {
         type: Sequelize.STRING(2),
         allowNull: false,
-        unique: true,
       },
       id_pais: {
         type: Sequelize.INTEGER,
@@ -30,6 +29,12 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+    });
+
+    await queryInterface.addConstraint("estado", {
+      fields: ["sigla", "id_pais"],
+      type: "unique",
+      name: "unique_pais_estado",
     });
   },
 

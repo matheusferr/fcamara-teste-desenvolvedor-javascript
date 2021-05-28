@@ -10,7 +10,6 @@ module.exports = {
       nome: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
       },
       id_estado: {
         type: Sequelize.INTEGER,
@@ -30,6 +29,12 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+    });
+
+    await queryInterface.addConstraint("cidade", {
+      fields: ["nome", "id_estado"],
+      type: "unique",
+      name: "unique_estado_cidade",
     });
   },
 
