@@ -35,6 +35,8 @@ DB_DATABASE=database a ser utilizado
 PORT=porta da api
 ```
 
+Caso deseje utilizar outro banco de dados, siga as instruções do [Sequelize](https://sequelize.org/master/manual/getting-started.html).
+
 ### Exemplo de configuração válida:
 
 ```
