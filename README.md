@@ -51,6 +51,7 @@ PORT=4000
 ## 3 - Crie a database e as tabelas no banco:
 
 ```bash
+yarn dbcreate:test;
 yarn dbcreate:dev;
 yarn migrate:dev;
 yarn dbcreate:prod;
