@@ -28,7 +28,7 @@ async function searchBySigla(req: Request, res: Response, next: NextFunction) {
   try {
     const { sigla } = req.query;
 
-    RequestValidator.validateQueryParam(sigla as string, "sigla", req);
+    RequestValidator.validateQueryParam(sigla as string);
 
     const estado = await EstadoDal.findBySigla(sigla as string);
 

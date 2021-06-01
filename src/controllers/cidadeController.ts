@@ -28,7 +28,7 @@ async function searchByNome(req: Request, res: Response, next: NextFunction) {
   try {
     const { nome } = req.query;
 
-    RequestValidator.validateQueryParam(nome as string, "nome", req);
+    RequestValidator.validateQueryParam(nome as string);
 
     const cidade = await CidadeDal.findByNome(nome as string);
 

@@ -22,7 +22,7 @@ async function searchByCpf(req: Request, res: Response, next: NextFunction) {
   try {
     const { cpf } = req.query;
 
-    RequestValidator.validateQueryParam(cpf as string, "cpf", req);
+    RequestValidator.validateQueryParam(cpf as string);
 
     const pessoa = await PessoaDal.findByCpf(cpf as string);
 

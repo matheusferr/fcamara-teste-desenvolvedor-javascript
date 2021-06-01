@@ -8,11 +8,12 @@ import { InvalidBodyFormat, InvalidCpf } from "../errors";
 
 export class PessoaValidator {
   private static validateCpf(cpf?: string) {
-    if (!cpf) throw new InvalidCpf();
-    if (cpf.length !== 11) throw new InvalidCpf();
+    // Validate empty/null and length
+    if (!cpf || cpf.length !== 11) throw new InvalidCpf();
 
     const regex = RegExp(`^${cpf[0]}+$`);
 
+    // Validate single digit sequence (e.g. 11111111111)
     if (regex.test(cpf)) throw new InvalidCpf();
 
     let numero = cpf.substring(0, 9);

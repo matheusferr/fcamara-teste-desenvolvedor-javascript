@@ -1,8 +1,8 @@
 import { Application } from "express";
-import * as errorhandlers from "./errorHandlers";
+import * as errorHandlers from "./ErrorHandlers";
 
 function ApplyMiddlewares(app: Application) {
-  Object.values(errorhandlers).forEach((handler) => {
+  Object.values(errorHandlers).forEach((handler) => {
     app.use(handler);
   });
 }
