@@ -73,7 +73,7 @@ class PessoaDalImpl implements PessoaDalDef {
       include: [
         {
           association: "cidadePessoa",
-          attributes: { exclude: ["id", "id_estado"] },
+          attributes: { include: ["id", "id_estado"] },
           include: [
             {
               association: "estadoCidade",
@@ -112,8 +112,8 @@ class PessoaDalImpl implements PessoaDalDef {
     };
   }
 
-  async update(id: number, payload: PessoaUpdateAttr) {
-    const pessoa = await Pessoa.findByPk(id, {
+  async update(id: string | number, payload: PessoaUpdateAttr) {
+    const pessoa = await Pessoa.findByPk(Number(id), {
       rejectOnEmpty: true,
     });
 
@@ -140,7 +140,7 @@ class PessoaDalImpl implements PessoaDalDef {
     };
   }
 
-  async destroy(id: number) {
+  async destroy(id: string | number) {
     await Pessoa.findByPk(id, {
       rejectOnEmpty: true,
     });

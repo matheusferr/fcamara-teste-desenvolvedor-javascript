@@ -9,6 +9,9 @@ export interface CidadeDalDef {
   findAll(): Promise<DetailedSearchResult[]>;
   findById(id: string | number): Promise<DetailedSearchResult>;
   findByNome(sigla: string): Promise<DetailedSearchResult>;
-  update(id: number, payload: CidadeUpdateAttr): Promise<CidadeCreationAttr>;
-  destroy(id: number): Promise<void>;
+  update(
+    id: string | number,
+    payload: CidadeUpdateAttr
+  ): Promise<CidadeCreationAttr>;
+  destroy(id: string | number): Promise<void>;
 }

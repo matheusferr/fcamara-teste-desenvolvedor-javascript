@@ -13,23 +13,21 @@ describe("Estado routes", () => {
   });
 
   it("should list all states", async () => {
-    const response = await request(app.express).get("/api/estados");
+    const response = await request(app).get("/api/estados");
 
     expect(response.status).toBe(200);
   });
 
   it("should find a state its ID", async () => {
     const state = await factory.create<EstadoInstance>("Estado");
-    const response = await request(app.express).get(`/api/estado/${state.id}`);
+    const response = await request(app).get(`/api/estado/${state.id}`);
 
     expect(response.status).toBe(200);
   });
 
   it("should find a state by abbr", async () => {
     const state = await factory.create<EstadoInstance>("Estado");
-    const response = await request(app.express).get(
-      `/api/estado?sigla=${state.sigla}`
-    );
+    const response = await request(app).get(`/api/estado?sigla=${state.sigla}`);
 
     expect(response.status).toBe(200);
   });
@@ -37,9 +35,7 @@ describe("Estado routes", () => {
   it("should create a state", async () => {
     const payload = await factory.attrs<EstadoInstance>("Estado");
 
-    const response = await request(app.express)
-      .post("/api/estados")
-      .send(payload);
+    const response = await request(app).post("/api/estados").send(payload);
 
     expect(response.status).toBe(201);
   });
@@ -51,7 +47,7 @@ describe("Estado routes", () => {
 
     payload.sigla = "RR";
 
-    const response = await request(app.express)
+    const response = await request(app)
       .put(`/api/estado/${state.id}`)
       .send(payload);
 
@@ -63,9 +59,7 @@ describe("Estado routes", () => {
       id_pais: 2,
     });
 
-    const response = await request(app.express)
-      .post("/api/estados")
-      .send(payload);
+    const response = await request(app).post("/api/estados").send(payload);
 
     expect(response.status).toBe(400);
   });
@@ -75,10 +69,10 @@ describe("Estado routes", () => {
 
     const state = await EstadoDal.create(payload);
 
-    const response = await request(app.express)
+    const response = await request(app)
       .delete(`/api/estado/${state.id}`)
       .send();
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   });
 });

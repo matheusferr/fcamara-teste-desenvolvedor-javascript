@@ -61,8 +61,8 @@ class EstadoDalImpl implements EstadoDalDef {
     };
   }
 
-  async update(id: number, payload: EstadoUpdateAttr) {
-    const estado = await Estado.findByPk(id, {
+  async update(id: string | number, payload: EstadoUpdateAttr) {
+    const estado = await Estado.findByPk(Number(id), {
       rejectOnEmpty: true,
     });
 
@@ -78,8 +78,8 @@ class EstadoDalImpl implements EstadoDalDef {
     };
   }
 
-  async destroy(id: number) {
-    await Estado.findByPk(id, {
+  async destroy(id: string | number) {
+    await Estado.findByPk(Number(id), {
       rejectOnEmpty: true,
     });
 

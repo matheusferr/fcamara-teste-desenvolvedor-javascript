@@ -88,6 +88,7 @@ const Pessoa = sequelize.define<PessoaInstance>(
     local_nascimento: {
       type: DataTypes.INTEGER,
       allowNull: false,
+
       validate: {
         notEmpty: true,
       },

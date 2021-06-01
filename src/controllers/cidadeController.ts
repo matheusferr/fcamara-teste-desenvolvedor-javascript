@@ -16,7 +16,7 @@ async function searchByID(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    const cidade = await CidadeDal.findById(Number(id));
+    const cidade = await CidadeDal.findById(id);
 
     res.send(cidade);
   } catch (err) {
@@ -63,7 +63,7 @@ async function update(req: Request, res: Response, next: NextFunction) {
 
     CidadeValidator.validateUpdateAttr({ nome, id_estado });
 
-    const cidade = await CidadeDal.update(Number(id), { nome, id_estado });
+    const cidade = await CidadeDal.update(id, { nome, id_estado });
 
     res.send(cidade);
   } catch (err) {
@@ -77,7 +77,7 @@ async function destroy(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    await CidadeDal.destroy(Number(id));
+    await CidadeDal.destroy(id);
 
     res.status(204).send();
   } catch (err) {

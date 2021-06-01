@@ -7,6 +7,9 @@ export interface PessoaDalDef {
   create(payload: PessoaCreationAttr): Promise<PessoaCreationAttr>;
   findById(id: string | number): Promise<DetailedSearchResults>;
   findByCpf(cpf: string): Promise<DetailedSearchResults>;
-  update(id: number, payload: PessoaUpdateAttr): Promise<PessoaCreationAttr>;
-  destroy(id: number): Promise<void>;
+  update(
+    id: string | number,
+    payload: PessoaUpdateAttr
+  ): Promise<PessoaCreationAttr>;
+  destroy(id: string | number): Promise<void>;
 }

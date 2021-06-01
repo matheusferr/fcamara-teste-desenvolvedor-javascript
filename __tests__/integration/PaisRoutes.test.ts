@@ -1,5 +1,4 @@
 import request from "supertest";
-import { PaisDal } from "@dals";
 import { PaisInstance } from "src/database/models/Pais";
 import { truncate } from "../utils";
 import factory from "../factory";
@@ -11,7 +10,7 @@ describe("Pais routes", () => {
   });
 
   it("should list all countries", async () => {
-    const response = await request(app.express).get("/api/paises");
+    const response = await request(app).get("/api/paises");
 
     expect(response.status).toBe(200);
   });
@@ -19,7 +18,7 @@ describe("Pais routes", () => {
   it("should find a country by its ID", async () => {
     const country = await factory.create<PaisInstance>("Pais");
 
-    const response = await request(app.express).get(`/api/pais/${country.id}`);
+    const response = await request(app).get(`/api/pais/${country.id}`);
 
     expect(response.status).toBe(200);
   });
@@ -27,9 +26,7 @@ describe("Pais routes", () => {
   it("should find a country by its abbr", async () => {
     const country = await factory.create<PaisInstance>("Pais");
 
-    const response = await request(app.express).get(
-      `/api/pais?sigla=${country.sigla}`
-    );
+    const response = await request(app).get(`/api/pais?sigla=${country.sigla}`);
 
     expect(response.status).toBe(200);
   });

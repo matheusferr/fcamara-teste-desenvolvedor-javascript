@@ -5,7 +5,6 @@ import morgan from "morgan";
 import chalk from "chalk";
 import cors from "cors";
 import compression from "compression";
-import { info } from "@utils/logger";
 import swaggerUi from "swagger-ui-express";
 import routes from "./routes";
 import ApplyMiddlewares from "./middlewares";
@@ -48,12 +47,6 @@ class App {
     this.express.use("/api", routes);
     this.express.use("/docs", swaggerUi.serve, swaggerUi.setup(docs));
   }
-
-  listen() {
-    this.express.listen(process.env.PORT, () => {
-      info(`Server is up and running on port ${process.env.PORT}`);
-    });
-  }
 }
 
-export default new App();
+export default new App().express;

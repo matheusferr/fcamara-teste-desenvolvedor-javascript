@@ -22,7 +22,6 @@ const defaultConfig = {
   database: process.env.DB_DATABASE,
   host: process.env.DB_HOST,
   dialect: process.env.DB_DIALECT,
-  storage: ":memory:",
   options,
 };
 

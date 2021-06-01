@@ -1,4 +1,4 @@
-import connection from "../../src/database/models/connection";
+import connection from "@connection";
 
 export function truncate() {
   return connection.sync({ force: true });

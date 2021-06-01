@@ -24,12 +24,12 @@ Cidade.belongsTo(Estado, {
 });
 
 Cidade.hasMany(Pessoa, {
-  foreignKey: "localNascimento",
+  foreignKey: "local_nascimento",
   as: "cidadePessoa",
 });
 
 Pessoa.belongsTo(Cidade, {
-  foreignKey: "localNascimento",
+  foreignKey: "local_nascimento",
   as: "cidadePessoa",
 });
 
