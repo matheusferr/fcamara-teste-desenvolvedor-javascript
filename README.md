@@ -24,7 +24,13 @@ Para executar a aplicação em seu computador, será necessário ter instalado o
 yarn
 ```
 
-## 1 - Crie os arquivos `.env.production` e `.env.development` com os seguintes valores:
+Usuários do Windows precisam instalar o `win-node-env` para que a aplicação possa ler os arquivos de configuração de ambiente:
+
+```bash
+yarn add -D win-node-env
+```
+
+## 1 - Crie os arquivos `.env.production` e `.env.development` na raíz do projeto com os seguintes valores:
 
 ```
 DB_DIALECT=dialeto do banco de dados
@@ -33,6 +39,12 @@ DB_PASS=senha do usuario
 DB_HOST=endereço do banco de dados
 DB_DATABASE=database a ser utilizado
 PORT=porta da api
+```
+
+Após isso, crie o arquivo `.env.test` com o seguinte valor:
+
+```
+DB_DIALECT=sqlite
 ```
 
 Caso deseje utilizar outro banco de dados, siga as instruções do [Sequelize](https://sequelize.org/master/manual/getting-started.html).
