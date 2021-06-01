@@ -79,7 +79,7 @@ async function destroy(req: Request, res: Response, next: NextFunction) {
 
     await CidadeDal.destroy(Number(id));
 
-    res.send({ status: "ok" });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

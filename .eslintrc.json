@@ -46,7 +46,7 @@
     ],
     "import/no-extraneous-dependencies": [
       "error",
-      { "devDependencies": ["**/*.test.ts", "**/*.spec.ts", "jest.config.ts"] }
+      { "devDependencies": ["__tests__/**/*.ts","jest.config.ts"] }
     ],
     "@typescript-eslint/no-unused-vars": [
       "error",

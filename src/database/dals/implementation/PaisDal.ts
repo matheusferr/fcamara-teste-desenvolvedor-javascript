@@ -12,8 +12,8 @@ class PaisDalImpl implements PaisDalDef {
     }));
   }
 
-  async findById(id: number) {
-    const pais = await Pais.findByPk(id, {
+  async findById(id: string | number) {
+    const pais = await Pais.findByPk(Number(id), {
       rejectOnEmpty: true,
     });
 

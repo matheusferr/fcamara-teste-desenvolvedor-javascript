@@ -1,16 +1,13 @@
-import faker from "faker";
-import { Pais } from "@models";
 import { EstadoValidator } from "@validators";
 import { InvalidBodyFormat } from "@errors";
 import { truncate } from "../../utils";
+import factory from "../../factory";
 
 describe("Estado Validator", () => {
   beforeEach(async () => {
     await truncate();
 
-    await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
+    await factory.create("Pais");
   });
 
   it("should validate the creation attrs", async () => {

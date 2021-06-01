@@ -34,7 +34,7 @@ class CidadeDalImpl implements CidadeDalDef {
     }));
   }
 
-  async findById(id: number) {
+  async findById(id: string | number) {
     const cidade = await Cidade.findByPk(id, {
       rejectOnEmpty: true,
       include: [

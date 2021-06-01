@@ -1,29 +1,42 @@
 import request from "supertest";
-import faker from "faker";
-import { Pais, Estado } from "@models";
 import { CidadeDal } from "@dals";
+import { CidadeInstance } from "src/database/models/Cidade";
 import { truncate } from "../utils";
+import factory from "../factory";
 import app from "../../src/app";
 
 describe("Cidade routes", () => {
   beforeEach(async () => {
     await truncate();
 
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
+    await factory.create("Pais");
+    await factory.create("Estado");
+  });
 
-    await Estado.create({
-      sigla: faker.address.stateAbbr(),
-      id_pais: country.id,
-    });
+  it("should list all cities", async () => {
+    const response = await request(app.express).get("/api/cidades");
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should find a city by its ID", async () => {
+    const city = await factory.create<CidadeInstance>("Cidade");
+    const response = await request(app.express).get(`/api/cidade/${city.id}`);
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should find a city by name", async () => {
+    const city = await factory.create<CidadeInstance>("Cidade");
+    const response = await request(app.express).get(
+      `/api/cidade?nome=${city.nome}`
+    );
+
+    expect(response.status).toBe(200);
   });
 
   it("should create a city", async () => {
-    const payload = {
-      nome: faker.address.cityName(),
-      id_estado: 1,
-    };
+    const payload = await factory.attrs<CidadeInstance>("Cidade");
 
     const response = await request(app.express)
       .post("/api/cidades")
@@ -33,14 +46,11 @@ describe("Cidade routes", () => {
   });
 
   it("should update a city", async () => {
-    const payload = {
-      nome: faker.address.cityName(),
-      id_estado: 1,
-    };
+    const payload = await factory.attrs<CidadeInstance>("Cidade");
 
     const city = await CidadeDal.create(payload);
 
-    payload.nome = faker.address.cityName();
+    payload.nome = "são paulo";
 
     const response = await request(app.express)
       .put(`/api/cidade/${city.id}`)
@@ -50,10 +60,9 @@ describe("Cidade routes", () => {
   });
 
   it("should respect foreign key constraint", async () => {
-    const payload = {
-      nome: faker.address.cityName(),
+    const payload = await factory.attrs<CidadeInstance>("Cidade", {
       id_estado: 2,
-    };
+    });
 
     const response = await request(app.express)
       .post("/api/cidades")
@@ -63,10 +72,7 @@ describe("Cidade routes", () => {
   });
 
   it("should delete a city", async () => {
-    const payload = {
-      nome: faker.address.cityName(),
-      id_estado: 1,
-    };
+    const payload = await factory.attrs<CidadeInstance>("Cidade");
 
     const city = await CidadeDal.create(payload);
 
@@ -74,6 +80,6 @@ describe("Cidade routes", () => {
       .delete(`/api/cidade/${city.id}`)
       .send();
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   });
 });

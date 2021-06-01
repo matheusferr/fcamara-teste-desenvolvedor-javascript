@@ -7,7 +7,7 @@ type DetailedSearchResult = Omit<EstadoCreationAttr, "id_pais"> & {
 export interface EstadoDalDef {
   create(payload: EstadoCreationAttr): Promise<EstadoCreationAttr>;
   findAll(): Promise<DetailedSearchResult[]>;
-  findById(id: number): Promise<EstadoCreationAttr>;
+  findById(id: string | number): Promise<EstadoCreationAttr>;
   findBySigla(sigla: string): Promise<EstadoCreationAttr>;
   update(id: number, payload: EstadoUpdateAttr): Promise<EstadoCreationAttr>;
   destroy(id: number): Promise<void>;

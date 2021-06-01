@@ -1,26 +1,17 @@
 import faker from "faker";
-import { Pais, Estado, Cidade } from "@models";
 import { PessoaValidator } from "@validators";
 import { InvalidBodyFormat, InvalidCpf } from "@errors";
+import { PessoaInstance } from "src/database/models/Pessoa";
 import { truncate } from "../../utils";
+import factory from "../../factory";
 
 describe("Pessoa Validator", () => {
   beforeEach(async () => {
     await truncate();
 
-    await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
-
-    await Estado.create({
-      sigla: faker.address.stateAbbr(),
-      id_pais: 1,
-    });
-
-    await Cidade.create({
-      nome: faker.address.cityName(),
-      id_estado: 1,
-    });
+    await factory.create("Pais");
+    await factory.create("Estado");
+    await factory.create("Cidade");
   });
 
   it("should validate the creation attrs", async () => {
@@ -38,15 +29,9 @@ describe("Pessoa Validator", () => {
   });
 
   it("should validate the cpf field", async () => {
-    const payload = {
-      nome: faker.fake(
-        "{{name.firstName}} {{name.middleName}} {{name.lastName}}"
-      ),
-      cpf: "11111111111",
-      email: faker.internet.email(),
-      data_nascimento: faker.date.past(),
-      local_nascimento: 1,
-    };
+    const payload = await factory.attrs<PessoaInstance>("Pessoa", {
+      cpf: "11111111121",
+    });
 
     expect(() => PessoaValidator.validateCreateAttr(payload)).toThrow(
       InvalidCpf

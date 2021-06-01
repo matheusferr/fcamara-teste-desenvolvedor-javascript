@@ -34,7 +34,7 @@ class EstadoDalImpl implements EstadoDalDef {
     }));
   }
 
-  async findById(id: number) {
+  async findById(id: string | number) {
     const estado = await Estado.findByPk(id, {
       rejectOnEmpty: true,
     });

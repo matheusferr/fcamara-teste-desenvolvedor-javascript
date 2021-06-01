@@ -1,19 +1,19 @@
-import { Dialect, Sequelize } from "sequelize";
+import { Sequelize } from "sequelize";
 
 import config from "../../config/database";
 
-const sequelize = new Sequelize(
-  // @ts-ignore
-  config.database,
-  config.username,
-  config.password,
-  {
-    dialect: config.dialect as Dialect,
-    define: {
-      ...config.define,
-    },
-    logging: config.logging,
-  }
-);
+const sequelize =
+  process.env.NODE_ENV === "test"
+    ? new Sequelize("sqlite::memory", {
+        dialect: "sqlite",
+        define: config.options.define,
+        logging: config.options.logging,
+      })
+    : new Sequelize(
+        config.database as string,
+        config.username as string,
+        config.password as string,
+        config.options
+      );
 
 export default sequelize;

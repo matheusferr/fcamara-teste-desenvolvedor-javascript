@@ -21,8 +21,8 @@ class PessoaDalImpl implements PessoaDalDef {
     };
   }
 
-  async findById(id: number) {
-    const pessoa = await Pessoa.findByPk(id, {
+  async findById(id: string | number) {
+    const pessoa = await Pessoa.findByPk(Number(id), {
       rejectOnEmpty: true,
       include: [
         {
