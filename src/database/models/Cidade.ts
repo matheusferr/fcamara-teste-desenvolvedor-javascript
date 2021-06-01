@@ -16,7 +16,7 @@ export interface CidadeUpdateAttr {
 
 export interface CidadeCreationAttr extends Optional<CidadeAttr, "id"> {}
 
-interface CidadeInstance
+export interface CidadeInstance
   extends Model<CidadeAttr, CidadeCreationAttr>,
     CidadeAttr {
   created_at?: Date;
@@ -35,6 +35,7 @@ const Cidade = sequelize.define<CidadeInstance>(
     nome: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: "unique_estado_cidade",
       validate: {
         notEmpty: true,
       },
@@ -42,6 +43,7 @@ const Cidade = sequelize.define<CidadeInstance>(
     id_estado: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: "unique_estado_cidade",
     },
   },
   {

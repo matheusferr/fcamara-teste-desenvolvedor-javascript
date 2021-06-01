@@ -1,6 +1,7 @@
-import { UniqueConstraintError, DatabaseError } from "sequelize";
+import { UniqueConstraintError, ValidationError } from "sequelize";
 import faker from "faker";
-import { Pais } from "@models";
+import { PaisInstance } from "src/database/models/Pais";
+import factory from "../../factory";
 import { truncate } from "../../utils";
 
 describe("Table País", () => {
@@ -9,9 +10,7 @@ describe("Table País", () => {
   });
 
   it("should create a country", async () => {
-    const country = await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
+    const country = await factory.create<PaisInstance>("Pais");
 
     expect(country.id).toBe(1);
   });
@@ -19,22 +18,16 @@ describe("Table País", () => {
   it("should respect unique constraint in field sigla", async () => {
     const sigla = faker.address.countryCode();
 
-    await Pais.create({
-      sigla,
-    });
+    await factory.create("Pais", { sigla });
 
-    await expect(
-      Pais.create({
-        sigla,
-      })
-    ).rejects.toThrow(UniqueConstraintError);
+    await expect(factory.create("Pais", { sigla })).rejects.toThrow(
+      UniqueConstraintError
+    );
   });
 
   it("should validate field sigla", async () => {
-    await expect(
-      Pais.create({
-        sigla: "ABC",
-      })
-    ).rejects.toThrow(DatabaseError);
+    await expect(factory.create("Pais", { sigla: "abc" })).rejects.toThrow(
+      ValidationError
+    );
   });
 });

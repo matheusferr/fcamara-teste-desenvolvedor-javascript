@@ -1,4 +1,3 @@
-import { Request } from "express";
 import { InvalidRequest } from "../errors";
 
 export class RequestValidator {
@@ -6,8 +5,7 @@ export class RequestValidator {
     if (Number.isNaN(param)) throw new InvalidRequest("ID invalido");
   }
 
-  static validateQueryParam(query: string, expectedKey: string, req: Request) {
-    if (!query || !Object.keys(req.query).includes(expectedKey))
-      throw new InvalidRequest("Filtro invalido");
+  static validateQueryParam(query: string) {
+    if (!query) throw new InvalidRequest("Filtro invalido");
   }
 }

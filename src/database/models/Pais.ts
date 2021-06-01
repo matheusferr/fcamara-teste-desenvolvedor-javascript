@@ -10,7 +10,9 @@ interface PaisAttr {
 
 export interface PaisCreationAttr extends Optional<PaisAttr, "id"> {}
 
-interface PaisInstance extends Model<PaisAttr, PaisCreationAttr>, PaisAttr {
+export interface PaisInstance
+  extends Model<PaisAttr, PaisCreationAttr>,
+    PaisAttr {
   created_at?: Date;
   updated_at?: Date;
 }
@@ -29,6 +31,7 @@ const Pais = sequelize.define<PaisInstance>(
       unique: true,
       validate: {
         notEmpty: true,
+        len: [2, 2],
       },
     },
   },

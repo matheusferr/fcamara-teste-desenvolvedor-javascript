@@ -1,43 +1,53 @@
 import request from "supertest";
-import faker from "faker";
-import { Pais } from "@models";
 import { EstadoDal } from "@dals";
+import { EstadoInstance } from "src/database/models/Estado";
 import { truncate } from "../utils";
 import app from "../../src/app";
+import factory from "../factory";
 
 describe("Estado routes", () => {
   beforeEach(async () => {
     await truncate();
 
-    await Pais.create({
-      sigla: faker.address.countryCode(),
-    });
+    await factory.create("Pais");
+  });
+
+  it("should list all states", async () => {
+    const response = await request(app).get("/api/estados");
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should find a state its ID", async () => {
+    const state = await factory.create<EstadoInstance>("Estado");
+    const response = await request(app).get(`/api/estado/${state.id}`);
+
+    expect(response.status).toBe(200);
+  });
+
+  it("should find a state by abbr", async () => {
+    const state = await factory.create<EstadoInstance>("Estado");
+    const response = await request(app).get(`/api/estado?sigla=${state.sigla}`);
+
+    expect(response.status).toBe(200);
   });
 
   it("should create a state", async () => {
-    const payload = {
-      sigla: faker.address.stateAbbr(),
-      id_pais: 1,
-    };
+    const payload = await factory.attrs<EstadoInstance>("Estado");
 
-    const response = await request(app.express)
-      .post("/api/estados")
-      .send(payload);
+    const response = await request(app).post("/api/estados").send(payload);
 
     expect(response.status).toBe(201);
   });
 
   it("should update a state", async () => {
-    const payload = {
-      sigla: faker.address.stateAbbr(),
-      id_pais: 1,
-    };
+    const payload = await factory.attrs<EstadoInstance>("Estado");
 
     const state = await EstadoDal.create(payload);
 
-    payload.sigla = faker.address.stateAbbr();
+    payload.sigla = "RR";
 
-    const response = await request(app.express)
+    const response = await request(app)
       .put(`/api/estado/${state.id}`)
       .send(payload);
 
@@ -45,30 +55,24 @@ describe("Estado routes", () => {
   });
 
   it("should respect foreign key constraint", async () => {
-    const payload = {
-      sigla: faker.address.stateAbbr(),
+    const payload = await factory.attrs<EstadoInstance>("Estado", {
       id_pais: 2,
-    };
+    });
 
-    const response = await request(app.express)
-      .post("/api/estados")
-      .send(payload);
+    const response = await request(app).post("/api/estados").send(payload);
 
     expect(response.status).toBe(400);
   });
 
   it("should delete a state", async () => {
-    const payload = {
-      sigla: faker.address.stateAbbr(),
-      id_pais: 1,
-    };
+    const payload = await factory.attrs<EstadoInstance>("Estado");
 
     const state = await EstadoDal.create(payload);
 
-    const response = await request(app.express)
+    const response = await request(app)
       .delete(`/api/estado/${state.id}`)
       .send();
 
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(204);
   });
 });

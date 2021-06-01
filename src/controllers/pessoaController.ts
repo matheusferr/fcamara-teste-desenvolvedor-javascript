@@ -10,7 +10,7 @@ async function searchByID(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    const pessoa = await PessoaDal.findById(Number(id));
+    const pessoa = await PessoaDal.findById(id);
 
     res.send(pessoa);
   } catch (err) {
@@ -22,7 +22,7 @@ async function searchByCpf(req: Request, res: Response, next: NextFunction) {
   try {
     const { cpf } = req.query;
 
-    RequestValidator.validateQueryParam(cpf as string, "cpf", req);
+    RequestValidator.validateQueryParam(cpf as string);
 
     const pessoa = await PessoaDal.findByCpf(cpf as string);
 
@@ -93,7 +93,7 @@ async function update(req: Request, res: Response, next: NextFunction) {
 
     PessoaValidator.validateUpdateAttr(payload);
 
-    const pessoa = await PessoaDal.update(Number(id), payload);
+    const pessoa = await PessoaDal.update(id, payload);
 
     res.send(pessoa);
   } catch (err) {
@@ -107,9 +107,9 @@ async function destroy(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    await PessoaDal.destroy(Number(id));
+    await PessoaDal.destroy(id);
 
-    res.send({ status: "ok" });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

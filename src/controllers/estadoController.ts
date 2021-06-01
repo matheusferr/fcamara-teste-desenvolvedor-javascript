@@ -16,7 +16,7 @@ async function searchByID(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    const estado = await EstadoDal.findById(Number(id));
+    const estado = await EstadoDal.findById(id);
 
     res.send(estado);
   } catch (err) {
@@ -28,7 +28,7 @@ async function searchBySigla(req: Request, res: Response, next: NextFunction) {
   try {
     const { sigla } = req.query;
 
-    RequestValidator.validateQueryParam(sigla as string, "sigla", req);
+    RequestValidator.validateQueryParam(sigla as string);
 
     const estado = await EstadoDal.findBySigla(sigla as string);
 
@@ -63,7 +63,7 @@ async function update(req: Request, res: Response, next: NextFunction) {
 
     EstadoValidator.validateCreateAttr({ sigla, id_pais });
 
-    const estado = await EstadoDal.update(Number(id), { sigla, id_pais });
+    const estado = await EstadoDal.update(id, { sigla, id_pais });
 
     res.send(estado);
   } catch (err) {
@@ -77,9 +77,9 @@ async function destroy(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    await EstadoDal.destroy(Number(id));
+    await EstadoDal.destroy(id);
 
-    res.send({ status: "ok" });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

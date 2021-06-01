@@ -45,7 +45,7 @@ export const cidades = {
         },
       },
       400: {
-        description: "Formato do corpo invalido",
+        description: "Formato do corpo inválido",
         content: {
           "application/json": {
             schema: {
@@ -84,7 +84,7 @@ export const cidadePath = {
         },
       },
       404: {
-        description: "Recurso nao encontrado",
+        description: "Recurso não encontrado",
         content: {
           "application/json": {
             schema: {
@@ -132,7 +132,7 @@ export const cidadePath = {
         },
       },
       400: {
-        description: "Formato do corpo invalido",
+        description: "Formato do corpo inválido",
         content: {
           "application/json": {
             schema: {
@@ -142,7 +142,7 @@ export const cidadePath = {
         },
       },
       404: {
-        description: "Recurso nao encontrado",
+        description: "Recurso não encontrado",
         content: {
           "application/json": {
             schema: {
@@ -168,20 +168,11 @@ export const cidadePath = {
       },
     ],
     responses: {
-      200: {
-        description: "Ok",
-        content: {
-          "application/json": {
-            schema: {
-              items: {
-                $ref: "#/schemas/estadoCreation",
-              },
-            },
-          },
-        },
+      204: {
+        description: "Recurso deletado",
       },
       404: {
-        description: "Recurso nao encontrado",
+        description: "Recurso não encontrado",
         content: {
           "application/json": {
             schema: {

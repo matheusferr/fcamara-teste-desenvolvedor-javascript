@@ -16,7 +16,7 @@ async function searchByID(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    const cidade = await CidadeDal.findById(Number(id));
+    const cidade = await CidadeDal.findById(id);
 
     res.send(cidade);
   } catch (err) {
@@ -28,7 +28,7 @@ async function searchByNome(req: Request, res: Response, next: NextFunction) {
   try {
     const { nome } = req.query;
 
-    RequestValidator.validateQueryParam(nome as string, "nome", req);
+    RequestValidator.validateQueryParam(nome as string);
 
     const cidade = await CidadeDal.findByNome(nome as string);
 
@@ -63,7 +63,7 @@ async function update(req: Request, res: Response, next: NextFunction) {
 
     CidadeValidator.validateUpdateAttr({ nome, id_estado });
 
-    const cidade = await CidadeDal.update(Number(id), { nome, id_estado });
+    const cidade = await CidadeDal.update(id, { nome, id_estado });
 
     res.send(cidade);
   } catch (err) {
@@ -77,9 +77,9 @@ async function destroy(req: Request, res: Response, next: NextFunction) {
 
     RequestValidator.validateParamValue(id);
 
-    await CidadeDal.destroy(Number(id));
+    await CidadeDal.destroy(id);
 
-    res.send({ status: "ok" });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

@@ -16,6 +16,7 @@
     "paths": {
       "@utils/*": ["./src/utils/*"],
       "@models": ["./src/database/models/"],
+      "@connection": ["./src/database/models/connection"],
       "@dals": ["./src/database/dals/implementation/"],
       "@validators": ["./src/validation/validators/"],
       "@errors": ["./src/validation/errors/"]
@@ -24,6 +25,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
+    
   },
   "include": ["src", "__tests__/**/*.ts"],
   "exclude": ["babel.config.js", "jest.config.ts", "node_modules", "__tests__/coverage", "dist"]

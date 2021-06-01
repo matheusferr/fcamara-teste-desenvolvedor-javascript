@@ -1,8 +1,5 @@
-import connection from "../../src/database/models/connection";
+import connection from "@connection";
 
 export function truncate() {
-  return connection.truncate({
-    cascade: true,
-    restartIdentity: true,
-  });
+  return connection.sync({ force: true });
 }

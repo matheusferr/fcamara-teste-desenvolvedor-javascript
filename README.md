@@ -24,7 +24,13 @@ Para executar a aplicação em seu computador, será necessário ter instalado o
 yarn
 ```
 
-## 1 - Crie os arquivos `.env.prod`, `.env.dev` e `.env.test` com os seguintes valores:
+Usuários do Windows precisam instalar o `win-node-env` para que a aplicação possa ler os arquivos de configuração de ambiente:
+
+```bash
+yarn add -D win-node-env
+```
+
+## 1 - Crie os arquivos `.env.production` e `.env.development` na raíz do projeto com os seguintes valores:
 
 ```
 DB_DIALECT=dialeto do banco de dados
@@ -33,6 +39,12 @@ DB_PASS=senha do usuario
 DB_HOST=endereço do banco de dados
 DB_DATABASE=database a ser utilizado
 PORT=porta da api
+```
+
+Após isso, crie o arquivo `.env.test` com o seguinte valor:
+
+```
+DB_DIALECT=sqlite
 ```
 
 Caso deseje utilizar outro banco de dados, siga as instruções do [Sequelize](https://sequelize.org/master/manual/getting-started.html).
@@ -51,7 +63,6 @@ PORT=4000
 ## 3 - Crie a database e as tabelas no banco:
 
 ```bash
-yarn dbcreate:test;
 yarn dbcreate:dev;
 yarn migrate:dev;
 yarn dbcreate:prod;
@@ -69,6 +80,10 @@ Após configurar o projeto, a aplicação poderá ser iniciada nos modos desenvo
 
 A documentação do Swagger está disponível na rota `/docs` para leitura e teste com os exemplos interativos.
 
+# Health Status da API
+
+Os status da API e da conexão com o banco de dados está disponível para consulta na rota `/health`.
+
 # Testes
 
 Os testes podem ser executados com os comandos `yarn test` (executa todos os testes uma única vez. Gera coverage) e `yarn test:watch` (executa um ou mais os testes quando houver alterações nos mesmos. Não gera o coverage)
@@ -84,13 +99,14 @@ Os testes podem ser executados com os comandos `yarn test` (executa todos os tes
 - Swagger
 - Jest (Testes unitários)
 - Babel
-
+- @godaddy/terminus
 ### Middlwares Express
 
 - compression
 - helmet
 - morgan
 - swagger-ui-express
+- cors
 
 ### Outros
 

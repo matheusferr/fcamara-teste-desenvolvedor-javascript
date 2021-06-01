@@ -34,8 +34,8 @@ class CidadeDalImpl implements CidadeDalDef {
     }));
   }
 
-  async findById(id: number) {
-    const cidade = await Cidade.findByPk(id, {
+  async findById(id: string | number) {
+    const cidade = await Cidade.findByPk(Number(id), {
       rejectOnEmpty: true,
       include: [
         {
@@ -75,7 +75,7 @@ class CidadeDalImpl implements CidadeDalDef {
     };
   }
 
-  async update(id: number, payload: CidadeUpdateAttr) {
+  async update(id: string | number, payload: CidadeUpdateAttr) {
     const cidade = await Cidade.findByPk(id, {
       rejectOnEmpty: true,
     });
@@ -92,8 +92,8 @@ class CidadeDalImpl implements CidadeDalDef {
     };
   }
 
-  async destroy(id: number) {
-    await Cidade.findByPk(id, {
+  async destroy(id: string | number) {
+    await Cidade.findByPk(Number(id), {
       rejectOnEmpty: true,
     });
 

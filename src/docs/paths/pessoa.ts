@@ -26,7 +26,7 @@ export const pessoas = {
         },
       },
       400: {
-        description: "Formato do corpo invalido",
+        description: "Formato do corpo inválido",
         content: {
           "application/json": {
             schema: {
@@ -65,7 +65,7 @@ export const pessoaPath = {
         },
       },
       404: {
-        description: "Recurso nao encontrado",
+        description: "Recurso não encontrado",
         content: {
           "application/json": {
             schema: {
@@ -113,7 +113,7 @@ export const pessoaPath = {
         },
       },
       400: {
-        description: "Formato do corpo invalido",
+        description: "Formato do corpo inválido",
         content: {
           "application/json": {
             schema: {
@@ -123,7 +123,7 @@ export const pessoaPath = {
         },
       },
       404: {
-        description: "Recurso nao encontrado",
+        description: "Recurso não encontrado",
         content: {
           "application/json": {
             schema: {
@@ -149,11 +149,11 @@ export const pessoaPath = {
       },
     ],
     responses: {
-      200: {
-        description: "Ok",
+      204: {
+        description: "Recurso deletado",
       },
       404: {
-        description: "Recurso nao encontrado",
+        description: "Recurso não encontrado",
         content: {
           "application/json": {
             schema: {
@@ -192,7 +192,7 @@ export const pessoaQuery = {
         },
       },
       404: {
-        description: "Recurso nao encontrado",
+        description: "Recurso não encontrado",
         content: {
           "application/json": {
             schema: {

@@ -16,7 +16,7 @@ export interface EstadoUpdateAttr {
 
 export interface EstadoCreationAttr extends Optional<EstadoAttr, "id"> {}
 
-interface EstadoInstance
+export interface EstadoInstance
   extends Model<EstadoAttr, EstadoCreationAttr>,
     EstadoAttr {
   created_at?: Date;
@@ -35,6 +35,7 @@ const Estado = sequelize.define<EstadoInstance>(
     sigla: {
       type: DataTypes.STRING(2),
       allowNull: false,
+      unique: "unique_pais_estado",
       validate: {
         notEmpty: true,
         len: [2, 2],
@@ -43,6 +44,7 @@ const Estado = sequelize.define<EstadoInstance>(
     id_pais: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: "unique_pais_estado",
     },
   },
   {

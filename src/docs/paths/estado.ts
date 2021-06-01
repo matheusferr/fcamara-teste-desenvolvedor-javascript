@@ -169,17 +169,8 @@ export const estadoPath = {
       },
     ],
     responses: {
-      200: {
-        description: "Ok",
-        content: {
-          "application/json": {
-            schema: {
-              items: {
-                $ref: "#/schemas/estadoCreation",
-              },
-            },
-          },
-        },
+      204: {
+        description: "Recurso deletado",
       },
       404: {
         description: "Recurso nao encontrado",

@@ -7,8 +7,11 @@ type DetailedSearchResult = Omit<CidadeCreationAttr, "id_estado"> & {
 export interface CidadeDalDef {
   create(payload: CidadeCreationAttr): Promise<CidadeCreationAttr>;
   findAll(): Promise<DetailedSearchResult[]>;
-  findById(id: number): Promise<DetailedSearchResult>;
+  findById(id: string | number): Promise<DetailedSearchResult>;
   findByNome(sigla: string): Promise<DetailedSearchResult>;
-  update(id: number, payload: CidadeUpdateAttr): Promise<CidadeCreationAttr>;
-  destroy(id: number): Promise<void>;
+  update(
+    id: string | number,
+    payload: CidadeUpdateAttr
+  ): Promise<CidadeCreationAttr>;
+  destroy(id: string | number): Promise<void>;
 }
