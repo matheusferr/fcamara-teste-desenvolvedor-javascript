@@ -1,6 +1,6 @@
 {
   "name": "teste-dev-js",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Projeto criado para documentar o teste para a vaga de desenvolvedor backend com Typescript",
   "main": "index.ts",
   "repository": "git@github.com:matheusferr/fcamara-teste-desenvolvedor-javascript.git",
@@ -61,21 +61,21 @@
     "typescript": "^4.2.4"
   },
   "scripts": {
-    "start": "NODE_ENV=prod node ./dist",
-    "dev": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --rs --pretty --clear --respawn --ignore-watch node_modules ./src",
+    "start": "NODE_ENV=production node ./dist",
+    "dev": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --rs --pretty --clear --respawn --ignore-watch node_modules ./src",
     "test": "NODE_ENV=test jest --detectOpenHandles --runInBand",
     "test:watch": "NODE_ENV=test jest --watch --detectOpenHandles --coverage false",
     "pretest": "NODE_ENV=test sequelize db:migrate",
     "pretest:watch": "NODE_ENV=test sequelize db:migrate",
     "prebuild": "rimraf ./dist",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files --no-copy-ignored",
-    "createdb:dev": "NODE_ENV=dev sequelize db:create",
-    "migrate:dev": "NODE_ENV=dev sequelize db:migrate",
-    "postmigrate:dev": "NODE_ENV=dev sequelize db:seed:all",
-    "migrate:dev:undo": "NODE_ENV=dev sequelize db:migrate:undo:all",
-    "createdb:prod": "NODE_ENV=prod sequelize db:create",
-    "migrate:prod": "NODE_ENV=prod sequelize db:migrate",
-    "postmigrate:prod": "NODE_ENV=prod sequelize db:seed:all",
-    "migrate:prod:undo": "NODE_ENV=prod sequelize db:migrate:undo:all"
+    "createdb:dev": "NODE_ENV=development sequelize db:create",
+    "migrate:dev": "NODE_ENV=development sequelize db:migrate",
+    "postmigrate:dev": "NODE_ENV=development sequelize db:seed:all",
+    "migrate:dev:undo": "NODE_ENV=development sequelize db:migrate:undo:all",
+    "createdb:prod": "NODE_ENV=production sequelize db:create",
+    "migrate:prod": "NODE_ENV=production sequelize db:migrate",
+    "postmigrate:prod": "NODE_ENV=production sequelize db:seed:all",
+    "migrate:prod:undo": "NODE_ENV=production sequelize db:migrate:undo:all"
   }
 }
